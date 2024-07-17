@@ -5,8 +5,8 @@ on:
       - opened
     branches:
       - main # main  
-      - dev-* # dev-new dev-new-1
-      - feature/** # feature/new feature/new/new1
+      - 'dev-*' # dev-new dev-new-1
+      - 'feature/**' # feature/new feature/new/new1
   workflow_dispatch:
 jobs:
   test: 
