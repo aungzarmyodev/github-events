@@ -34,7 +34,7 @@ jobs:
           channel: stable
       - name: Get dependencies
         run: flutter pub get
-  deploy:
+  build:
     needs: test
     runs-on: macos-latest
     steps:
@@ -60,6 +60,15 @@ jobs:
         with: 
           name: my apk
           path: build
+  deploy: 
+    needs: build
+    runs-on: macos-latest
+    steps: 
+      - name: Download apk
+        uses: actions/download-artifact@v4
+        with: 
+          name: myapk
+          path: desktop
         
         
 
