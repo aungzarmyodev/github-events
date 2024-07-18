@@ -58,7 +58,7 @@ jobs:
       - name: Upload apk
         uses: actions/upload-artifact@v4
         with: 
-          name: my apk
+          name: my-apk
           path: build
   deploy: 
     needs: build
@@ -67,8 +67,7 @@ jobs:
       - name: Download apk
         uses: actions/download-artifact@v4
         with: 
-          name: myapk
-          path: desktop
+          name: my-apk
         
         
 
