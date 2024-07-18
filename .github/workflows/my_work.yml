@@ -13,8 +13,8 @@ on:
       - master # main  
       - 'dev-*' # dev-new dev-new-1
       - 'feature/**' # feature/new feature/new/new1
-    paths-ignore:
-      - '.github/workflows/*'
+    # paths-ignore:
+    #   - '.github/workflows/*'
 jobs:
   test: 
     runs-on: macos-latest
@@ -34,6 +34,28 @@ jobs:
           channel: stable
       - name: Get dependencies
         run: flutter pub get
+  deploy:
+    needs: test
+    runs-on: macos-latest
+    steps:
+      - name: Output event data
+        run: echo "${{toJson(github.event)}}"  
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with: 
+          distribution: 'temurin'
+          java-version: 17
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Build APK
+        run: flutter build apk
+        
 
 
 
