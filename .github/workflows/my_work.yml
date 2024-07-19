@@ -32,6 +32,11 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.yaml
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
       - name: Get dependencies
         run: flutter pub get
   build:
@@ -51,14 +56,19 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+            path: ~/.yaml
+            key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
       - name: Get dependencies
         run: flutter pub get
       - name: Build APK
-        env: 
-          ENCODED_STRING: ${{ secrets.KEYSTORE_BASE_64 }}
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          RELEASE_KEYSTORE_ALIAS: ${{ secrets.KEY_ALIAS }}
-          RELEASE_KEY_PASSWORD: ${{ secrets.KEY_STORE }} 
+        # env: 
+        #   ENCODED_STRING: ${{ secrets.KEYSTORE_BASE_64 }}
+        #   RELEASE_KEYSTORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+        #   RELEASE_KEYSTORE_ALIAS: ${{ secrets.KEY_ALIAS }}
+        #   RELEASE_KEY_PASSWORD: ${{ secrets.KEY_STORE }} 
         run: flutter build apk --release
       - name: Upload apk
         uses: actions/upload-artifact@v4
