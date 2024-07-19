@@ -23,16 +23,16 @@ jobs:
         run: echo "${{toJson(github.event)}}"  
       - name: Get code
         uses: actions/checkout@v4
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.yml
-          key: deps-flututer-modules-${{hashFiles('**/pubspec.lock')}}
       - name: Setup Java
         uses: actions/setup-java@v4
         with: 
           distribution: 'temurin'
           java-version: 17
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter    
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -47,16 +47,16 @@ jobs:
         run: echo "${{toJson(github.event)}}"  
       - name: Get code
         uses: actions/checkout@v4
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-            path: ~/.yml
-            key: deps-flututer-modules-${{hashFiles('**/pubspec.lock')}}  
       - name: Setup Java
         uses: actions/setup-java@v4
         with: 
           distribution: 'temurin'
           java-version: 17
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
