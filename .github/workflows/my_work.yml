@@ -26,7 +26,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.yaml
+          path: ~/.yml
           key: deps-flututer-modules-${{hashFiles('**/pubspec.lock')}}
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -50,7 +50,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
-            path: ~/.yaml
+            path: ~/.yml
             key: deps-flututer-modules-${{hashFiles('**/pubspec.lock')}}  
       - name: Setup Java
         uses: actions/setup-java@v4
