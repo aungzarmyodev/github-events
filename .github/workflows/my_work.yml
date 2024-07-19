@@ -36,7 +36,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.yaml
-          key: ${{ runner.os }}-${{ hashFiles('**/pubspec.yml') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Get dependencies
         run: flutter pub get
   build:
@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v4
         with:
             path: ~/.yaml
-            key: ${{ runner.os }}-${{ hashFiles('**/pubspec.yml') }}
+            key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Get dependencies
         run: flutter pub get
       # - name: Build APK
