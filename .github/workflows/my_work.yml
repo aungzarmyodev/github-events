@@ -58,20 +58,19 @@ jobs:
         id: flutter-action
         with:
           channel: stable
+          dry-run: true
+      - run: |
+          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+          echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+          echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+          echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+          echo PUB-CACHE-PATH=${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
+          echo PUB-CACHE-KEY=${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
+        shell: bash
+      
       - name: Get dependencies
         run: flutter pub get
-      # - name: Build APK
-      #   # env: 
-      #   #   ENCODED_STRING: ${{ secrets.KEYSTORE_BASE_64 }}
-      #   #   RELEASE_KEYSTORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-      #   #   RELEASE_KEYSTORE_ALIAS: ${{ secrets.KEY_ALIAS }}
-      #   #   RELEASE_KEY_PASSWORD: ${{ secrets.KEY_STORE }} 
-      #   run: flutter build apk --release
-      # - name: Upload apk
-      #   uses: actions/upload-artifact@v4
-      #   with: 
-      #     name: my-apk
-      #     path: build
   deploy: 
     needs: build
     runs-on: macos-latest
