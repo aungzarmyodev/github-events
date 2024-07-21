@@ -53,8 +53,16 @@ jobs:
         id: flutter-action
         with:
           channel: stable
-      - name: Get dependencies
-        run: flutter pub get
+          dry-run: true
+      - run: |
+         echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+         echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+         echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+         echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+         echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+         echo PUB-CACHE-PATH=${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
+         echo PUB-CACHE-KEY=${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
+        shell: bash
   deploy: 
     needs: build
     runs-on: macos-latest
