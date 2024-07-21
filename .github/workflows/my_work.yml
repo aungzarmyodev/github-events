@@ -63,6 +63,13 @@ jobs:
          echo PUB-CACHE-PATH=${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
          echo PUB-CACHE-KEY=${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
         shell: bash
+      - name: Build APK
+        run: flutter build apk
+      - name: Upload apk
+        uses: actions/upload-artifact@v4
+        with: 
+          name: my-apk
+          path: build
   deploy: 
     needs: build
     runs-on: macos-latest
