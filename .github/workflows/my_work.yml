@@ -53,7 +53,6 @@ jobs:
         id: flutter-action
         with:
           channel: stable
-          dry-run: true
       - run: |
          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
@@ -63,6 +62,8 @@ jobs:
          echo PUB-CACHE-PATH=${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
          echo PUB-CACHE-KEY=${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
         shell: bash
+      - name: Get dependencies
+        run: flutter pub get
       - name: Build APK
         run: flutter build apk
       - name: Upload apk
