@@ -60,7 +60,7 @@ jobs:
       - name: Decode Keystore
         env:
           ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_BASE_64 }}
-          DECODED_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
+          DECODED_KEYSTORE_PATH: /path/to/keystore.jks
         run: |
           echo $ENCODED_KEYSTORE > keystore-b64.txt
           base64 -d keystore-b64.txt > $DECODED_KEYSTORE_PATH
