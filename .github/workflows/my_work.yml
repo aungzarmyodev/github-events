@@ -32,11 +32,20 @@ jobs:
         uses: subosito/flutter-action@v2
         with: 
           channel: stable
-          cache: true
-      - name: Check flutter version
-        run: flutter --version
+      - name: Cache Flutter dependencies
+        id: cache-flutter-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ github.workspace }}/.packages
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-flutter-
       - name: Get dependencies
         run: flutter pub get
+      - name: Run test
+        run: flutter test
   build:
     needs: test
     runs-on: macos-latest
@@ -54,9 +63,20 @@ jobs:
         uses: subosito/flutter-action@v2
         with: 
           channel: stable
-          dry-run: true
+      - name: Cache Flutter dependencies
+        id: cache-flutter-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ github.workspace }}/.packages
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+                ${{ runner.os }}-flutter-
       - name: Get dependencies
         run: flutter pub get
+      - name: Run test
+        run: flutter test
         
         
 
