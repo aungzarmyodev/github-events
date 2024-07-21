@@ -55,6 +55,7 @@ jobs:
         id: flutter-action
         with: 
           channel: stable
+          dry-run: true
       - name: Get dependencies
         run: flutter pub get
       - name: Run test
