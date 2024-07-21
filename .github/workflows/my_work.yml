@@ -56,17 +56,7 @@ jobs:
           channel: stable
       - name: Get dependencies
         run: flutter pub get
-      - name: Decode keystore
-        env:
-          KEYSTORE: ${{ secrets.KEYSTORE_BASE_64 }}
-        run: echo $KEYSTORE | base64 --decode > /tmp/keystore.jks
-      - name: Set up key.properties
-        run: |
-          echo "storePassword=${{ secrets.KEY_STORE_PASSWORD }}" >> $GITHUB_WORKSPACE/android/key.properties
-          echo "keyPassword=${{ secrets.KEY_STORE }}" >> $GITHUB_WORKSPACE/android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> $GITHUB_WORKSPACE/android/key.properties
-          echo "storeFile=/tmp/keystore.jks" >> $GITHUB_WORKSPACE/android/key.properties
-
+        
       - name: Build APK
         run: flutter build apk --release
 
