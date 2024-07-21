@@ -59,9 +59,10 @@ jobs:
 
       - name: Set up Keystore
         run: |
-          echo "$KEYSTORE_BASE64" | base64 -d > /tmp/keystore.jks
+          echo "$KEYSTORE_BASE64" | base64 -d > $KEYSTORE_PATH
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE_64 }}
+          KEYSTORE_PATH: /tmp/keystore.jks
 
       - name: Build APK
         run: flutter build apk --release
