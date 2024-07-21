@@ -55,7 +55,6 @@ jobs:
         id: flutter-action
         with: 
           channel: stable
-          dry-run: true
       - run: |
           echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
           echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
