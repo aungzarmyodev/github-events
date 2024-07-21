@@ -57,20 +57,19 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Decode Keystore
-        env:
-          ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_BASE_64 }}
-          DECODED_KEYSTORE_PATH: /path/to/keystore.jks
+      - name: Set up Keystore
         run: |
-          echo $ENCODED_KEYSTORE > keystore-b64.txt
-          base64 -d keystore-b64.txt > $DECODED_KEYSTORE_PATH
-
-      - name: Build Release apk
+          echo "$KEYSTORE_BASE64" | base64 -d > /tmp/keystore.jks
         env:
-            RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEY_STORE_PASSWORD }}
-            RELEASE_KEYSTORE_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
-            RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
-        run: ./gradlew assembleRelease --stacktrace
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE_64 }}
+
+      - name: Build APK
+        run: flutter build apk --release
+        env:
+            KEYSTORE_PATH: /tmp/keystore.jks
+            KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEY_STORE_PASSWORD }}
+            KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+            KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
     
       - name: Upload APK
         uses: actions/upload-artifact@v3
