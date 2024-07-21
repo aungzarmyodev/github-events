@@ -49,23 +49,6 @@ jobs:
         uses: subosito/flutter-action@v2
       - name: Get dependencies
         run: flutter pub get
-      - name: Build APK
-        run: flutter build apk
-      - name: Upload apk
-        uses: actions/upload-artifact@v4
-        with: 
-          name: my-apk
-          path: build
-  deploy: 
-    needs: build
-    runs-on: macos-latest
-    steps: 
-      - name: Download apk
-        uses: actions/download-artifact@v4
-        with: 
-          name: my-apk
-      - name: Download path
-        run: ls
         
         
 
